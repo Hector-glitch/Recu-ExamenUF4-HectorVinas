@@ -24,7 +24,7 @@ export class HomeRecuHectorVinasComponent {
   }
 
   IDBerryAleatoria(): number {
-    return Math.floor(Math.random() * 64) + 1; // ID aleatoria entre 1 y 64
+    return Math.floor(Math.random() * 64) + 1; //Generar ID aleatòria entre 64 i 1
   }
 
   searchBerry() {
@@ -42,10 +42,12 @@ export class HomeRecuHectorVinasComponent {
         if (this.esDols) {
           console.log(`Promesa resolta! La baia ${berryData.name} és dolça. Potència de sabor: ${sweetFlavor.potency}`);
         } else {
+          //Buscar quins altres abors hi ha si el sweet no es troba
           const otherFlavor = berryData.flavors.find((flavor: any) => flavor.potency > 0);
           if (otherFlavor) {
             console.log(`Promesa rebutjada! La baia ${berryData.name} és ${otherFlavor.flavor.name}. Potència de sabor: ${otherFlavor.potency}`);
           } else {
+            //Missatge per si cap sabor es troba
             console.log(`La baia ${berryData.name} no te cap sabor amb una potencia mes gran que 0.`);
           }
         }
@@ -62,14 +64,14 @@ export class HomeRecuHectorVinasComponent {
       fetch(`https://pokeapi.co/api/v2/berry/${berryId}/`)
         .then(response => response.json())
         .then(berryData => {
-          // Hacer una segunda llamada para obtener los datos del item asociado a la baya
+          //Un segon fetch per obtenir les dades de la baia en concret
           fetch(berryData.item.url)
             .then(response => response.json())
             .then(itemData => {
               resolve({
                 name: berryData.name,
                 flavors: berryData.flavors,
-                imageUrl: itemData.sprites?.default // Ajusta según la estructura de la respuesta
+                imageUrl: itemData.sprites?.default
               });
             })
             .catch(() => {
