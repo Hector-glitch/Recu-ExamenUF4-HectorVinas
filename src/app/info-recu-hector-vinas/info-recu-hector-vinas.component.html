@@ -1,0 +1,18 @@
+<br>
+<h1>Busca un pokemon amb la ID</h1>
+
+<form (ngSubmit)="buscarPokemon()">
+  <input type="number" [(ngModel)]="IdDelPokemon" name="pokemonId" placeholder="Escriu la ID">
+  <button type="submit">Buscar</button>
+</form>
+
+<div *ngIf="pokemon">
+
+  <p>POKEMON: {{ pokemon.name }}</p>
+  <p *ngIf="pokemon.evolvesFrom">Evoluciona de: {{ pokemon.evolvesFrom }}</p>
+
+  <h2>Nom del pokemon en diferents llengüatges:</h2>
+  <div *ngFor="let name of pokemon.noms">
+    <p> El nom en el llenguantge [{{ name.language }}] es => [{{ name.name }}] </p>
+  </div>
+</div>
